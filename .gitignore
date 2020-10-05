@@ -1,0 +1,6 @@
+# standard stuff to ignore
+__pycache__/
+.env
+
+# prod setting & secrets
+instance/settings.py
