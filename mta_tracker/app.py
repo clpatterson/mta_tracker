@@ -9,7 +9,7 @@ def create_app(settings_override=None):
     :param settings_override: Override settings
     :return: Flask app
     """
-    app = Flask(__name__, instance_relative_config=True):
+    app = Flask(__name__, instance_relative_config=True)
 
     app.config.from_object('config.settings')
     app.config.from_pyfile('settings.py', silent=True)
@@ -17,8 +17,13 @@ def create_app(settings_override=None):
     if settings_override:
         app.config.update(settings_override)
     
-    #TODO: Add api endpoints
-    
+    from mta_tracker.resources.subway.lines import LineStatus, LineUptime
+
+    # Register routes for api resources
+    url_base = '/mta_tracker/api/v1.0/'
+    api.add_resource(LineStatus, f'{url_base}lines/status', endpoint='status')
+    api.add_resource(LineUptime, f'{url_base}lines/uptime', endpoint='uptime')
+
     extensions(app) # must initialize api after adding routes
     
     return app
