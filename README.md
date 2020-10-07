@@ -15,17 +15,29 @@ that can be used to check delays and uptime for a given subway line.
 ## Getting Started
 1) clone this repo locally
 2) cd into project dir with Dockerfile and run...
-```docker-compose up --build```
+```
+docker-compose up --build
+```
 3) Use cli cmd to create tables in postgres db
-```docker-compose exec api mta_tracker db reset```
+```
+docker-compose exec api mta_tracker db reset
+```
 4) (Optional) check to see tables have been created in postgres db
-```docker-compose exec postgres psql -U mta_tracker -d mta_tracker```
+```
+docker-compose exec postgres psql -U mta_tracker -d mta_tracker
+```
 5) Start celery web scraping worker (runs every min)
 
 ## Clean up
-```docker-compose stop```
-```docker-compose rm -f```
-```docker rmi -f $(docker images -qf dangling=true)```
+```
+docker-compose stop
+```
+```
+docker-compose rm -f
+```
+```
+docker rmi -f $(docker images -qf dangling=true)
+```
 
 ## Known Issues
 * Celery config should be derived from flask config so instance folder can be used
