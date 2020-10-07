@@ -47,7 +47,7 @@ def get_delayed_lines(page_data):
     """Parse mta info page and return delayed lines."""
     tree = html.fromstring(page_data)
     delays = tree.xpath(
-    "//div[@class='by-status']/h5[text()='Planned Work']/following-sibling::ul/li/a/span/text()")
+    "//div[@class='by-status']/h5[text()='Delays']/following-sibling::ul/li/a/span/text()")
     
     lines = []
     

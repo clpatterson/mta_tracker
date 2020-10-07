@@ -18,7 +18,8 @@ that can be used to check delays and uptime for a given subway line.
 ```
 docker-compose up --build
 ```
-3) Use cli cmd to create tables in postgres db
+Note: celery worker is started right away
+3) In another terminal window, use cli cmd to create tables in postgres db
 ```
 docker-compose exec api mta_tracker db reset
 ```
@@ -26,7 +27,6 @@ docker-compose exec api mta_tracker db reset
 ```
 docker-compose exec postgres psql -U mta_tracker -d mta_tracker
 ```
-5) Start celery web scraping worker (runs every min)
 6) Ping the status endpoint for a subway line's status
 ```
 http://localhost:8000/mta_tracker/api/v1.0/subway/lines/status?line=L
@@ -34,6 +34,10 @@ http://localhost:8000/mta_tracker/api/v1.0/subway/lines/status?line=L
 7) Ping the uptime endpoint for a subway line's uptime
 ```
 http://localhost:8000/mta_tracker/api/v1.0/subway/lines/uptime?line=L
+```
+8) Check logs for messages related to subway line status changes
+```
+docker-compose exec api cat logs/line_status.log
 ```
 
 ## Clean up
@@ -47,6 +51,15 @@ docker-compose rm -f
 docker rmi -f $(docker images -qf dangling=true)
 ```
 
+## Implementation details
+* A celery worker runs the task in mta_tracker/tasks/tasks.py every minute.
+All details regarding the continuous monitoring of MTA service status can be
+found in that file, including logging and where data is stored in the db.
+* To understand endpoints, see mta_tracker/resources/subway/lines.py.
+
 ## Known Issues
-* Celery config should be derived from flask config so instance folder can be used
+* Celery config should be stored in same file as flask configs...this way
+instance folder can be used for prod configs. 
+* Needs testing with Pytest!!! Both endpoints and celery task need testing!
+* Times are all in UTC
 

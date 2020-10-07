@@ -4,9 +4,6 @@ from flask_restful import Resource, reqparse, fields, marshal
 
 from mta_tracker.models import db, Lines
 
-# All subway lines
-allowed_lines = ['1','2','3','4','5','6','7','A','C','E','B','D','F','M','G',
-                 'J','Z','N','Q','R','W','L','SIR','S']
 
 response_fields = {
     'line': fields.String,
