@@ -1,5 +1,5 @@
 from flask import Flask
-from mta_tracker.extensions import api
+from mta_tracker.extensions import api, db
 
 def create_app(settings_override=None):
     """
@@ -35,5 +35,6 @@ def extensions(app):
     :return: None
     """
     api.init_app(app)
+    db.init_app(app)
 
     return None

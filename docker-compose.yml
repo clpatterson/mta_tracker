@@ -39,5 +39,15 @@ services:
         volumes:
             - '.:/mta_tracker'
     
+    postgres:
+        image: 'postgres:13'
+        env_file:
+            - '.env'
+        volumes:
+            - 'postgres:/var/lib/postgresql/data'
+        ports:
+            - '5432:5432'
+    
 volumes:
     redis:
+    postgres:

@@ -1,8 +1,8 @@
 # standard stuff to ignore
 __pycache__/
 .env
+celerybeat-schedule
+line_status.log
 
 # prod setting & secrets
 instance/settings.py
-
-celerybeat-schedule

@@ -1,6 +1,6 @@
-# DEBUG = False
+# Flask
+DEBUG = False
+SERVER_NAME = 'prod_host'
 
-# SERVER_NAME = 'host'
-
-CELERY_BROKER_URL = 'redis://:amuchmoresecurepassword@redis:6379/0'
-CELERY_RESULT_BACKEND = 'redis://:amuchmoresecurepassword@redis:6379/0'
+# SQLAlchemy
+db_uri = 'postgresql://username:password@your_prod_host:port/database'
