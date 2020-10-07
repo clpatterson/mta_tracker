@@ -1,0 +1,6 @@
+# Flask
+DEBUG = False
+SERVER_NAME = 'prod_host'
+
+# SQLAlchemy
+db_uri = 'postgresql://username:password@your_prod_host:port/database'

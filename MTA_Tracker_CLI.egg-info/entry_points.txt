@@ -1,0 +1,4 @@
+
+        [console_scripts]
+        mta_tracker=cli.cli:cli
+    
