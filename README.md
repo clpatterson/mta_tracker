@@ -14,11 +14,10 @@ that can be used to check delays and uptime for a given subway line.
 
 ## Getting Started
 1) clone this repo locally
-2) cd into project dir with Dockerfile and run...
+2) cd into project dir with Dockerfile and run... (Note: celery worker is started right away)
 ```
 docker-compose up --build
 ```
-Note: celery worker is started right away
 3) In another terminal window, use cli cmd to create tables in postgres db
 ```
 docker-compose exec api mta_tracker db reset
