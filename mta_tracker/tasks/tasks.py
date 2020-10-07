@@ -47,7 +47,7 @@ def get_delayed_lines(page_data):
     """Parse mta info page and return delayed lines."""
     tree = html.fromstring(page_data)
     delays = tree.xpath(
-    "//div[@class='by-status']/h5[text()='Delays']/following-sibling::ul/li/a/span/text()")
+    "//div[@class='by-status']/h5[text()='Planned Work']/following-sibling::ul/li/a/span/text()")
     
     lines = []
     
@@ -95,19 +95,19 @@ def scrape_mta_status():
 
     if newly_delayed:
         for line in newly_delayed:
-            logger.info(f"Line {line} is experiencing delays.")
             line = Lines.query.filter_by(line=line).first()
             line.current_status = 'Delayed'
             line.last_updated = datetime.now()
             db.session.commit()
+            logger.info(f"Line {line.line} is experiencing delays.")
     
     if newly_renewed:
         for line in newly_renewed:
-            logger.info(f"Line {line} is now recovered.")
             line = Lines.query.filter_by(line=line).first()
             line.total_min_delayed += 1
             line.current_status = 'On-time'
             line.last_updated = datetime.now()
             db.session.commit()
+            logger.info(f"Line {line.line} is now recovered.")
     
     return None
