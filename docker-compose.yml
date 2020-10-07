@@ -14,3 +14,30 @@ services:
             - '.:/mta_tracker'
         ports:
             - '8000:8000'
+    
+    chrome:
+        image:
+            'selenium/standalone-chrome:4'
+        volumes:
+            - /dev/shm:/dev/shm
+        ports:
+            - '4444:4444'
+    
+    redis:
+        image: 'redis:3.0-alpine'
+        command: redis-server --requirepass devpassword
+        volumes:
+            - 'redis:/var/lib/redis/data'
+        ports:
+            - '6379:6379'
+    
+    celery:
+        build: .
+        command: celery -A mta_tracker.tasks worker -B -l DEBUG
+        env_file:
+            - '.env'
+        volumes:
+            - '.:/mta_tracker'
+    
+volumes:
+    redis:

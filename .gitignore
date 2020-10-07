@@ -4,3 +4,5 @@ __pycache__/
 
 # prod setting & secrets
 instance/settings.py
+
+celerybeat-schedule

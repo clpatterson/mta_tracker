@@ -1,7 +1,6 @@
 from flask import Flask
 from mta_tracker.extensions import api
 
-
 def create_app(settings_override=None):
     """
     Create a Flask application using the app factory pattern.

@@ -2,16 +2,20 @@ from flask_restful import Resource, reqparse, fields, marshal
 
 
 line_fields = {
-    'name': fields.String
+    'line': fields.String,
+    'query_type': fields.String,
+    
 }
 
 
-#  TODO: Define reqparser
+reqparse = reqparse.RequestParser()
+reqparse.add_argument('line', type=str, required=True, 
+help="No subway line provided.", location='args')
 
 class LineUptime(Resource):
     
     def __init__(self):
-        self.parser = None
+        self.reqparse = reqparse
     
     def get(self):
         """
@@ -21,12 +25,14 @@ class LineUptime(Resource):
         :param line: Name of subway line
         :return: Information related to uptime
         """
-        
-        return {"line":'uptime!'}
+        args = self.reqparse.parse_args()
+        line = args['line_name']
+
+        return {"line":f'{line.upper()} uptime!'}
 
 class LineStatus(Resource):
     def __init__(self):
-        self.parser = None
+        self.reqparse = reqparse
     
     def get(self):
         """
@@ -35,5 +41,7 @@ class LineStatus(Resource):
         :param line: Name of subway line
         :return: Information related to on-time/delayed status
         """
+        args = self.reqparse.parse_args()
+        line = args['line_name']
         
-        return {"line":'status!'}
+        return {"line":f'{line.upper()} status!'}
