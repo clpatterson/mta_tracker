@@ -1,10 +1,18 @@
+from datetime import datetime
+
 from flask_restful import Resource, reqparse, fields, marshal
 
+from mta_tracker.models import db, Lines
 
-line_fields = {
+# All subway lines
+allowed_lines = ['1','2','3','4','5','6','7','A','C','E','B','D','F','M','G',
+                 'J','Z','N','Q','R','W','L','SIR','S']
+
+response_fields = {
     'line': fields.String,
+    'date': fields.String,
     'query_type': fields.String,
-    
+    'value': fields.String
 }
 
 
@@ -26,9 +34,22 @@ class LineUptime(Resource):
         :return: Information related to uptime
         """
         args = self.reqparse.parse_args()
-        line = args['line_name']
+        line_name = args['line'].upper()
+        line = Lines.query.filter_by(line=line_name).first_or_404()
+        
+        # Calculate uptime
+        total_time = datetime.now() - line.created
+        total_time = total_time.total_seconds() / 60
+        uptime = 1 - (line.total_min_delayed / total_time)
 
-        return {"line":f'{line.upper()} uptime!'}
+        response = {
+            'line': line.line,
+            'date': datetime.now(),
+            'query_type': "Uptime",
+            'value': uptime
+        }
+        
+        return {'response':marshal(response, response_fields)}
 
 class LineStatus(Resource):
     def __init__(self):
@@ -42,6 +63,13 @@ class LineStatus(Resource):
         :return: Information related to on-time/delayed status
         """
         args = self.reqparse.parse_args()
-        line = args['line_name']
+        line_name = args['line'].upper()
+        line = Lines.query.filter_by(line=line_name).first_or_404()
+        response = {
+            'line': line.line,
+            'date': datetime.now(),
+            'query_type': "Status",
+            'value': line.current_status
+        }
         
-        return {"line":f'{line.upper()} status!'}
+        return {'response':marshal(response, response_fields)}

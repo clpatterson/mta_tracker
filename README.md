@@ -27,6 +27,14 @@ docker-compose exec api mta_tracker db reset
 docker-compose exec postgres psql -U mta_tracker -d mta_tracker
 ```
 5) Start celery web scraping worker (runs every min)
+6) Ping the status endpoint for a subway line's status
+```
+http://localhost:8000/mta_tracker/api/v1.0/subway/lines/status?line=L
+```
+7) Ping the uptime endpoint for a subway line's uptime
+```
+http://localhost:8000/mta_tracker/api/v1.0/subway/lines/uptime?line=L
+```
 
 ## Clean up
 ```

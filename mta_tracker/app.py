@@ -20,8 +20,8 @@ def create_app(settings_override=None):
 
     # Register routes for api resources
     url_base = '/mta_tracker/api/v1.0/'
-    api.add_resource(LineStatus, f'{url_base}lines/status', endpoint='status')
-    api.add_resource(LineUptime, f'{url_base}lines/uptime', endpoint='uptime')
+    api.add_resource(LineStatus, f'{url_base}subway/lines/status', endpoint='status')
+    api.add_resource(LineUptime, f'{url_base}subway/lines/uptime', endpoint='uptime')
 
     extensions(app) # must initialize api after adding routes
     
