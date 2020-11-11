@@ -39,6 +39,12 @@ http://localhost:8000/mta_tracker/api/v1.0/subway/lines/uptime?line=L
 docker-compose exec api cat logs/line_status.log
 ```
 
+## Testing
+* Run the following command to test endpoints
+```bash
+docker-compose exec api py.test mta_tracker/tests
+```
+
 ## Clean up
 ```
 docker-compose stop
@@ -59,6 +65,5 @@ found in that file, including logging and where data is stored in the db.
 ## Known Issues
 * Celery config should be stored in same file as flask configs...this way
 instance folder can be used for prod configs. 
-* Needs testing with Pytest!!! Both endpoints and celery task need testing!
 * Times are all in UTC
 
