@@ -1,5 +1,5 @@
 # MTA Tracker
-https://github.com/clpatterson/mta_tracker/workflows/integration-tests/badge.svg
+![GitHub Actions status | integration-tests](https://github.com/clpatterson/mta_tracker/workflows/integration-tests/badge.svg)
 
 ## Introduction
 MTA Tracker is a small web service to monitor NYC MTA subway service. The web service provides two endpoints ```/status``` and ```/uptime```
