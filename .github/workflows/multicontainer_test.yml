@@ -1,4 +1,4 @@
-name: Multi-Container App Test
+name: integration-tests
 on: push
 jobs:
   test:

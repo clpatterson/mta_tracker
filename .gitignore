@@ -3,6 +3,7 @@ __pycache__/
 .env
 celerybeat-schedule
 line_status.log
+.pytest_cache
 
 # prod setting & secrets
 instance/settings.py
