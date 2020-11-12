@@ -14,7 +14,9 @@ jobs:
             envkey_POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
             envkey_PYTHONUNBUFFERED: true
             file_name: .env
-      - name: Build App
+      - name: Build app
         run: docker-compose up -d
-      - name: Run Pytest
+      - name: Create and seed db
+        run: docker-compose exec -T api mta_tracker db reset
+      - name: Run tests
         run: docker-compose exec -T api py.test mta_tracker/tests
