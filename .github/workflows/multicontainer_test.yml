@@ -1,0 +1,11 @@
+name: Multi-Container App Test
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build App
+        run: docker-compose up -d
+      - name: Run Pytest
+        run: docker-compose exec api py.test mta_tracker/tests
