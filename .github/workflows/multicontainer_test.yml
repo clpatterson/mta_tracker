@@ -22,7 +22,7 @@ jobs:
       - name: Check running containers
         run: docker-compose ps -a
       - name: Check logs
-        run: docker-compose logs postgres
+        run: docker-compose logs
       - name: Test database is healthy
         run: docker-compose exec -T postgres pg_isready -U mta_tracker
       - name: Create and seed db
