@@ -2,11 +2,10 @@ name: integration-tests
 on: push
 
 jobs:
-  container-job-test:
+  run-integration-tests:
     runs-on: ubuntu-latest
-    container: 
-      image: ubuntu
-
+    container:
+      image: tiangolo/docker-with-compose
     steps:
       - name: Get repo
         uses: actions/checkout@v2
