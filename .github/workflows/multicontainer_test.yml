@@ -13,12 +13,18 @@ jobs:
         uses: SpicyPizza/create-envfile@v1
         with:
             envkey_COMPOSE_PROJECT_NAME: mta_tracker
-            envkey_POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-            envkey_POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+            envkey_POSTGRES_USER: mta_tracker
+            envkey_POSTGRES_PASSWORD: devpassword
             envkey_PYTHONUNBUFFERED: true
             file_name: .env
       - name: Build app
         run: docker-compose up -d
+      - name: Check running containers
+        run: docker-compose ps -a
+      - name: Check logs
+        run: docker-compose logs postgres
+      - name: Test database is healthy
+        run: docker-compose exec -T postgres pg_isready -U mta_tracker
       - name: Create and seed db
         run: docker-compose exec -T api mta_tracker db reset
       - name: Run tests
