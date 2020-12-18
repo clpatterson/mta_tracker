@@ -5,7 +5,7 @@ jobs:
   container-job-test:
     runs-on: ubuntu-latest
     container: 
-      image: ubuntu-latest
+      image: ubuntu
 
     steps:
       - name: Get repo
