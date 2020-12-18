@@ -1,9 +1,12 @@
 name: integration-tests
-# test
 on: push
+
 jobs:
-  test:
+  container-job-test:
     runs-on: ubuntu-latest
+    container: 
+      image: ubuntu-latest
+
     steps:
       - name: Get repo
         uses: actions/checkout@v2
